@@ -1,35 +1,34 @@
-import { useLocation, Link, useNavigate } from "react-router-dom";
+import {  Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 export default function Header() {
   const [activeLink, setActiveLink] = useState("");
-  // const [defaultActiveLink, setDefaultActiveLink] = useState("true")
 
   const handleClick = (path) => {
     setActiveLink(path);
-    // setDefaultActiveLink("false")
   };
 
-  // const handleDefault = () => {
-  //   setDefaultActiveLink("");
-  // }
-
   useEffect(() => {
-    setActiveLink("/")
-  },[])
+    setActiveLink("/");
+  }, []);
 
-  const location = useLocation();
+  // const location = useLocation();
   const navigate = useNavigate();
-  console.log(location.pathname);
+  // console.log(location.pathname);
 
   return (
-    <div className="border-b shadow-sm sticky top-0 z-50 ">
+    <div className="bg-white border-b shadow-sm sticky top-0 z-50 ">
       <header className="flex justify-between items-center max-w-6xl mx-auto ">
         <div>
-          <p className="text-2xl text-color cursor-pointer " onClick={()=> {
-            navigate("/")
-            setActiveLink("/")
-          }}>Turar Joy </p>
+          <p
+            className="text-2xl text-color cursor-pointer "
+            onClick={() => {
+              navigate("/");
+              setActiveLink("/");
+            }}
+          >
+            Turar Joy{" "}
+          </p>
         </div>
         <div>
           <ul className="flex  space-x-10">
@@ -42,11 +41,9 @@ export default function Header() {
                     : "text-gray-400 "
                 }
                 `}
-                
                 onClick={() => {
-                  handleClick("/")
-                  
-                } }
+                  handleClick("/");
+                }}
               >
                 Home
               </Link>
@@ -60,8 +57,7 @@ export default function Header() {
                     : "text-gray-400 "
                 }`}
                 onClick={() => {
-                  handleClick("/offers")
-                  // handleDefault("false")
+                  handleClick("/offers");
                 }}
               >
                 Offers
@@ -76,8 +72,7 @@ export default function Header() {
                     : "text-gray-400 "
                 }`}
                 onClick={() => {
-                  handleClick("/sign-in")
-                  // handleDefault()
+                  handleClick("/sign-in");
                 }}
               >
                 Sign In
