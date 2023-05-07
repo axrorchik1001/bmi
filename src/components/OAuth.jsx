@@ -16,8 +16,7 @@ const OAuth = () => {
       const auth = getAuth();
       const provider = new GoogleAuthProvider() 
       const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      console.log(user);
+      const user = result.user;   
   
       // CHECK FOR THE USER 
       const docRef = doc(db, "users", user.uid);
