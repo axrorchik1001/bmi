@@ -87,7 +87,7 @@ const SignUp = () => {
             />
             <div className="relative mb-6">
               <input
-                type={showPassword ? "text" : "password"}
+                type={showPassword ? "password" : "text"}
                 value={password}
                 id="password"
                 onChange={onchangeInput}
@@ -95,15 +95,17 @@ const SignUp = () => {
                 placeholder="Password"
               />
               {showPassword ? (
-                <AiFillEye
-                  className="absolute right-3 top-3 text-xl cursor-pointer"
-                  onClick={() => setShowPassword((prevState) => !prevState)}
-                />
+								<AiFillEye
+								className="absolute right-3 top-3 text-xl cursor-pointer"
+								onClick={() => setShowPassword((prevState) => !prevState)}
+							/>
+								
+                
               ) : (
                 <AiFillEyeInvisible
-                  className="absolute right-3 top-3 text-xl cursor-pointer"
-                  onClick={() => setShowPassword((prevState) => !prevState)}
-                />
+								className="absolute right-3 top-3 text-xl cursor-pointer"
+								onClick={() => setShowPassword((prevState) => !prevState)}
+							/>
               )}
             </div>
             <div className="flex justify-between mb-6 whitespace-nowrap text-sm sm:text-lg">

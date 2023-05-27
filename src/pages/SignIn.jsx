@@ -60,7 +60,7 @@ const SignIn = () => {
             />
             <div className="relative mb-6">
               <input
-                type={showPassword ? "text" : "password"}
+                type={showPassword ? "password" : "text"}
                 value={password}
                 id="password"
                 onChange={onchangeInput}
