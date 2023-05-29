@@ -67,7 +67,7 @@ export default function Listing() {
 						slidesPerView: 2,
 					},
 					// Ekran kengligi 480 pikseldan katta bo'lganda (telefon)
-					480: {
+					250: {
 						slidesPerView: 1,
 					},
 				}}
@@ -96,7 +96,7 @@ export default function Listing() {
 							: listing.regularPrice
 									.toString()
 									.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-						{listing.type === "rent" ? " / month" : ""}
+						{listing.type === "rent" ? " / OY" : ""}
 					</p>
 					<p className="flex items-center mt-6 mb-3 font-semibold">
 						<FaMapMarkerAlt className="text-green-700 mr-1" />
@@ -104,34 +104,34 @@ export default function Listing() {
 					</p>
 					<div className="flex justify-start items-center space-x-4 w-[75%]">
 						<p className="bg-red-800 w-full max-w-[200px] rounded-md p-1 text-white text-center font-semibold shadow-md">
-							{listing.type === "rent" ? "Rent" : "Sale"}
+							{listing.type === "rent" ? "Ijaraga olinadi" : "Sotiladi"}
 						</p>
 						{listing.offer && (
 							<p className="w-full max-w-[200px] bg-green-800 rounded-md p-1 text-white text-center font-semibold shadow-md">
-								${+listing.regularPrice - +listing.discountedPrice} discount
+								${+listing.regularPrice - +listing.discountedPrice} chegirma
 							</p>
 						)}
 					</div>
 					<p className="mt-3 mb-3">
-						<span className="font-semibold">Description - </span>
+						<span className="font-semibold">Uy haqida - </span>
 						{listing.description}
 					</p>
-					<ul className="flex items-center space-x-2 sm:space-x-10 text-sm font-semibold mb-6">
-						<li className="flex items-center whitespace-nowrap">
-							<FaBed className="text-lg mr-1" />
-							{+listing.bedrooms > 1 ? `${listing.bedrooms} Beds` : "1 Bed"}
+					<ul className="flex  flex-wrap justify-around md:justify-normal  md:flex-nowrap items-center space-x-2 sm:space-x-10 text-sm font-semibold mb-6">
+						<li className="flex items-center whitespace-nowrap  ">
+							<FaBed className="text-lg " />
+						{listing.bedrooms} ta yotoq
 						</li>
-						<li className="flex items-center whitespace-nowrap">
-							<FaBath className="text-lg mr-1" />
-							{+listing.bathrooms > 1 ? `${listing.bathrooms} Baths` : "1 Bath"}
+						<li className="flex items-center whitespace-nowrap ">
+							<FaBath className="text-lg " />
+							{listing.bathrooms} ta vanna
 						</li>
-						<li className="flex items-center whitespace-nowrap">
-							<FaParking className="text-lg mr-1" />
-							{listing.parking ? "Parking spot" : "No parking"}
+						<li className="flex items-center whitespace-nowrap ">
+							<FaParking className="text-lg " />
+							{listing.parking ? "Turargoh bor" : "Turargoh yo'q"}
 						</li>
-						<li className="flex items-center whitespace-nowrap">
-							<FaChair className="text-lg mr-1" />
-							{listing.furnished ? "Furnished" : "Not furnished"}
+						<li className="flex items-center whitespace-nowrap mt-2 md:mt-0 ">
+							<FaChair className="text-lg " />
+							{listing.furnished ? "Jixozlangan" : "Jixozlanmagan"}
 						</li>
 					</ul>
 					{listing.userRef !== auth.currentUser?.uid && !contactLandlord && (

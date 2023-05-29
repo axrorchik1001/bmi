@@ -79,12 +79,12 @@ export default function CreateListing() {
 		setLoading(true);
 		if (+discountedPrice >= +regularPrice) {
 			setLoading(false);
-			toast.error("Discounted price needs to be less than regular price");
+			toast.error("Chegirmadagi narx belgilangan narxdan kamroq bo'lishi kerak");
 			return;
 		}
 		if (images.length > 6) {
 			setLoading(false);
-			toast.error("maximum 6 images are allowed");
+			toast.error("Rasmlar maksimal 6 tadan oshmasligi kerak");
 			return;
 		}
 		let geolocation = {};
@@ -103,7 +103,7 @@ export default function CreateListing() {
 				}
 			} catch (error) {
 				setLoading(false);
-				toast.error("please enter a correct address");
+				toast.error("To'g'ri manzil kiriting");
 				return;
 			}
 		}
@@ -150,7 +150,7 @@ export default function CreateListing() {
 			[...images].map((image) => storeImage(image)),
 		).catch((error) => {
 			setLoading(false);
-			toast.error("Images not uploaded");
+			toast.error("Rasmlar yuklanmadi");
 			return;
 		});
 
@@ -167,7 +167,7 @@ export default function CreateListing() {
 		delete formDataCopy.longitude;
 		const docRef = await addDoc(collection(db, "listings"), formDataCopy);
 		setLoading(false);
-		toast.success("Listing created");
+		toast.success("Ro'yxat yartildi");
 		navigate(`/category/${formDataCopy.type}/${docRef.id}`);
 	}
 
@@ -177,9 +177,9 @@ export default function CreateListing() {
 
 	return (
 		<main className="max-w-md px-2 mx-auto">
-			<h1 className="text-3xl text-center mt-6 font-bold">Create a Listing</h1>
+			<h1 className="text-3xl text-center mt-6 font-bold">Ro'yxat yaratish</h1>
 			<form onSubmit={onSubmit}>
-				<p className="text-lg mt-6 font-semibold">Sell / Rent</p>
+				<p className="text-lg mt-6 font-semibold">Sotish / Ijaraga berish</p>
 				<div className="flex">
 					<button
 						type="button"
@@ -192,7 +192,7 @@ export default function CreateListing() {
 								: "bg-slate-600 text-white"
 						}`}
 					>
-						sell
+						sotish
 					</button>
 					<button
 						type="button"
@@ -205,16 +205,16 @@ export default function CreateListing() {
 								: "bg-slate-600 text-white"
 						}`}
 					>
-						rent
+						ijaraga berish
 					</button>
 				</div>
-				<p className="text-lg mt-6 font-semibold">Name</p>
+				<p className="text-lg mt-6 font-semibold">Nomi</p>
 				<input
 					type="text"
 					id="name"
 					value={name}
 					onChange={onChange}
-					placeholder="Name"
+					placeholder="..."
 					maxLength="32"
 					minLength="10"
 					required
@@ -222,7 +222,7 @@ export default function CreateListing() {
 				/>
 				<div className="flex space-x-6 mb-6">
 					<div>
-						<p className="text-lg font-semibold">Beds</p>
+						<p className="text-lg font-semibold">Yotoq</p>
 						<input
 							type="number"
 							id="bedrooms"
@@ -235,7 +235,7 @@ export default function CreateListing() {
 						/>
 					</div>
 					<div>
-						<p className="text-lg font-semibold">Baths</p>
+						<p className="text-lg font-semibold">Vanna</p>
 						<input
 							type="number"
 							id="bathrooms"
@@ -248,7 +248,7 @@ export default function CreateListing() {
 						/>
 					</div>
 				</div>
-				<p className="text-lg mt-6 font-semibold">Parking spot</p>
+				<p className="text-lg mt-6 font-semibold">Avto turargoh</p>
 				<div className="flex">
 					<button
 						type="button"
@@ -259,7 +259,7 @@ export default function CreateListing() {
 							!parking ? "bg-white text-black" : "bg-slate-600 text-white"
 						}`}
 					>
-						Yes
+						bor
 					</button>
 					<button
 						type="button"
@@ -270,10 +270,10 @@ export default function CreateListing() {
 							parking ? "bg-white text-black" : "bg-slate-600 text-white"
 						}`}
 					>
-						no
+						yo'q
 					</button>
 				</div>
-				<p className="text-lg mt-6 font-semibold">Furnished</p>
+				<p className="text-lg mt-6 font-semibold">Jixozlangan</p>
 				<div className="flex">
 					<button
 						type="button"
@@ -284,7 +284,7 @@ export default function CreateListing() {
 							!furnished ? "bg-white text-black" : "bg-slate-600 text-white"
 						}`}
 					>
-						yes
+						bor
 					</button>
 					<button
 						type="button"
@@ -295,16 +295,16 @@ export default function CreateListing() {
 							furnished ? "bg-white text-black" : "bg-slate-600 text-white"
 						}`}
 					>
-						no
+						yo'q
 					</button>
 				</div>
-				<p className="text-lg mt-6 font-semibold">Address</p>
+				<p className="text-lg mt-6 font-semibold">Joylashuv</p>
 				<textarea
 					type="text"
 					id="address"
 					value={address}
 					onChange={onChange}
-					placeholder="Address"
+					placeholder="..."
 					required
 					className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-6"
 				/>
@@ -338,17 +338,17 @@ export default function CreateListing() {
 						</div>
 					</div>
 				)}
-				<p className="text-lg font-semibold">Description</p>
+				<p className="text-lg font-semibold">Uy haiqida</p>
 				<textarea
 					type="text"
 					id="description"
 					value={description}
 					onChange={onChange}
-					placeholder="Description"
+					placeholder="..."
 					required
 					className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-6"
 				/>
-				<p className="text-lg font-semibold">Offer</p>
+				<p className="text-lg font-semibold">Chegirma </p>
 				<div className="flex mb-6">
 					<button
 						type="button"
@@ -359,7 +359,7 @@ export default function CreateListing() {
 							!offer ? "bg-white text-black" : "bg-slate-600 text-white"
 						}`}
 					>
-						yes
+						bor
 					</button>
 					<button
 						type="button"
@@ -370,12 +370,12 @@ export default function CreateListing() {
 							offer ? "bg-white text-black" : "bg-slate-600 text-white"
 						}`}
 					>
-						no
+						yo'q
 					</button>
 				</div>
 				<div className="flex items-center mb-6">
 					<div className="">
-						<p className="text-lg font-semibold">Regular price</p>
+						<p className="text-lg font-semibold">Narx</p>
 						<div className="flex w-full justify-center items-center space-x-6">
 							<input
 								type="number"
@@ -398,7 +398,7 @@ export default function CreateListing() {
 				{offer && (
 					<div className="flex items-center mb-6">
 						<div className="">
-							<p className="text-lg font-semibold">Discounted price</p>
+							<p className="text-lg font-semibold">Chegirmadagi Narx</p>
 							<div className="flex w-full justify-center items-center space-x-6">
 								<input
 									type="number"
@@ -422,9 +422,9 @@ export default function CreateListing() {
 					</div>
 				)}
 				<div className="mb-6">
-					<p className="text-lg font-semibold">Images</p>
+					<p className="text-lg font-semibold">Rasmlar</p>
 					<p className="text-gray-600">
-						The first image will be the cover (max 6)
+						Rasmlar soni (max 6)
 					</p>
 					<input
 						type="file"
@@ -440,7 +440,7 @@ export default function CreateListing() {
 					type="submit"
 					className="mb-6 w-full px-7 py-3 bg-blue-600 text-white font-medium text-sm uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
 				>
-					Create Listing
+					Ro'yxat yaratish
 				</button>
 			</form>
 		</main>

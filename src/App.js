@@ -13,13 +13,13 @@ import CreateListing from "./pages/CreateListing";
 import EditListing from "./pages/EditListing";
 import Listing from "./pages/Listing";
 import Category from "./pages/Category";
+import SearchedPlace from "./pages/SearchedPlace";
 
 function App() {
 	return (
 		<>
 			<Router>
 				<Header />
-
 				<Routes>
 					<Route path="/" element={<Home />} />
 					<Route path="/profile" element={<Profile />} />
@@ -41,6 +41,8 @@ function App() {
 						path="/category/:categoryName/:listingId"
 						element={<Listing />}
 					/>
+					<Route path="/searched-place" element={<SearchedPlace/>} />
+
 				</Routes>
 			</Router>
 			<ToastContainer

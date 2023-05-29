@@ -51,7 +51,7 @@ export default function Profile() {
 					name,
 				});
 			}
-			toast.success("Profile details updated");
+			toast.success("Muvaffaqiyatli o'zgartirildi");
 		} catch (error) {
 			toast.error("Could not update the profile details");
 		}
@@ -93,7 +93,7 @@ export default function Profile() {
 	return (
 		<>
 			<section className="max-w-6xl mx-auto flex justify-center items-center flex-col">
-				<h1 className="text-3xl text-center mt-6 font-bold">My Profile</h1>
+				<h1 className="text-3xl text-center mt-6 font-bold">Shaxsiy profil</h1>
 				<div className="w-full md:w-[50%] mt-6 px-3">
 					<form>
 						{/* Name Input */}
@@ -115,9 +115,9 @@ export default function Profile() {
 							disabled
 							className="mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out"
 						/>
-						<div className="flex justify-between whitespace-nowrap text-sm sm:text-lg mb-6">
+						<div className="flex flex-wrap  justify-between whitespace-nowrap text-sm sm:text-lg mb-6">
 							<p className="flex items-center ">
-								Do you want to change your name?
+								Ismingizni o'zgartirish
 								<span
 									onClick={() => {
 										changeDetail && onSubmit();
@@ -125,14 +125,14 @@ export default function Profile() {
 									}}
 									className="text-red-600 hover:text-red-700 transition ease-in-out duration-200 ml-1 cursor-pointer"
 								>
-									{changeDetail ? "Apply change" : "Edit"}
+									{changeDetail ? "O'zgarishni saqlash" : "O'zgartirish"}
 								</span>
 							</p>
 							<p
 								onClick={onLogout}
-								className="text-blue-600 hover:text-blue-800 transition duration-200 ease-in-out cursor-pointer"
+								className="text-blue-600 hover:text-blue-800 transition duration-200 ease-in-out cursor-pointer ml-1"
 							>
-								Sign out
+								Chiqish
 							</p>
 						</div>
 					</form>
@@ -146,7 +146,7 @@ export default function Profile() {
 							className="flex justify-center items-center"
 						>
 							<FcHome className="mr-2 text-3xl bg-red-200 rounded-full p-1 border-2" />
-							Sell or rent your home
+							Sotish va Sotib olish 
 						</Link>
 					</button>
 				</div>
@@ -155,7 +155,7 @@ export default function Profile() {
 				{!loading && listings.length > 0 && (
 					<>
 						<h2 className="text-2xl text-center font-semibold mb-6">
-              My Listings
+              Mening ro'yxatlarim
             </h2>
 						<ul className="sm:grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
 							{listings.map((listing) => (
