@@ -33,7 +33,7 @@ const SignIn = () => {
         navigate("/")
       }
     } catch (error) {
-      toast.error("Bad user creadentials")
+      toast.error("Foydalanuvchi topilmadi")
     }
   }
 

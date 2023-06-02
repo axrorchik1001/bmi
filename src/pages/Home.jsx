@@ -1,7 +1,6 @@
 import React from "react";
 import {
 	collection,
-	getDoc,
 	getDocs,
 	limit,
 	orderBy,
@@ -104,7 +103,7 @@ const Home = () => {
 		fetchListings();
 	}, [limitValue]);
 
-	// Places for rent
+	// Places for sale
 	const [saleListings, setSaleListings] = useState(null);
 	useEffect(() => {
 		async function fetchListings() {
@@ -136,7 +135,7 @@ const Home = () => {
 	}, [limitValue]);
 
 	return (
-		<div>
+		<div className="">
 			<BgImg />
 			<div className="max-w-6xl mx-auto pt-4 space-y-6">
 				{offerListings && offerListings.length > 0 && (

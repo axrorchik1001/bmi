@@ -4,8 +4,9 @@ import { toast } from "react-toastify";
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import { db } from "../firebase";
 import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 
+// OAuth - Open Authorization
 const OAuth = () => {
 	const navigate = useNavigate();
 
@@ -28,7 +29,7 @@ const OAuth = () => {
 			}
 			navigate("/");
 		} catch (error) {
-			toast.error("Could not authorize with Google");
+			toast.error("Google bilan kirib bo'lmadi qilib bo‘lmadi");
 		}
 	}
 

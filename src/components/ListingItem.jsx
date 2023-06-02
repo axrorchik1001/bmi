@@ -6,7 +6,6 @@ import { FaTrash } from "react-icons/fa";
 import { MdEdit} from "react-icons/md";
 
 export default function ListingItem({ listing, id, onDelete, onEdit }) {
-	// Moment.globalLocale = 'uz'; // Uzbek tilini o'rnatish
 	return (
 		<li className="relative bg-white flex flex-col justify-between items-center shadow-md hover:shadow-xl rounded-md overflow-hidden transition-shadow duration-150 m-[10px]">
 			<Link className="contents" to={`/category/${listing.type}/${id}`}>
