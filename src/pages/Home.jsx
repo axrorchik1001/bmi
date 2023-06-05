@@ -14,6 +14,7 @@ import ListingItem from "../components/ListingItem";
 import { db } from "../firebase";
 import BgImg from "../components/BgImg";
 
+
 const Home = () => {
 	// Offers
 	const [offerListings, setOfferListings] = useState(null);
@@ -137,6 +138,7 @@ const Home = () => {
 	return (
 		<div className="">
 			<BgImg />
+			
 			<div className="max-w-6xl mx-auto pt-4 space-y-6">
 				{offerListings && offerListings.length > 0 && (
 					<div className="m-2 mb-6">

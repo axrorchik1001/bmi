@@ -47,6 +47,8 @@ export default function SearchedPlace() {
 						data: doc.data(),
 					});
 				});
+				// console.log(querySnap);
+				
 				setListings(listings);
 				console.log(listings);
 			} catch (error) {
