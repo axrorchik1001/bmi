@@ -9,19 +9,25 @@ import {
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import { db } from "../firebase";
-import { Link } from "react-router-dom";
 import ListingItem from "../components/ListingItem";
 import Spinner from "../components/Spinner";
-// import Spinner from "../components/Slider";
+import SearchNavbar from "../components/SearchNavbar";
+import { SearchedNavbar } from "../components/SearchedNavbar";
 
 export default function SearchedPlace() {
+	const [inputValue, setInputValue] = useState("");
+
+	const handleInputChange = (e) => {
+		setInputValue(e.target.value);
+	};
+
 	const [loading, setLoading] = useState(true);
 	const [listings, setListings] = useState(null);
 	const useQuery = () => {
 		return new URLSearchParams(useLocation().search); // bu orqali shaxar nomini return qilamiz
 	};
-	let queryName = useQuery();  // == name=${search} shunga teng -> name=andijan 
-	let search = queryName.get("name")
+	let queryName = useQuery(); // == name=${search} shunga teng -> name=andijan
+	let search = queryName.get("name");
 	if (search) {
 		search = search.charAt(0).toUpperCase() + search.slice(1);
 	}
@@ -48,31 +54,29 @@ export default function SearchedPlace() {
 					});
 				});
 				// console.log(querySnap);
-				
 				setListings(listings);
-				console.log(listings);
+				// console.log(listings);
 			} catch (error) {
 				console.log(error);
 			}
-			setLoading(false)
+			setLoading(false);
 		}
 		fetchListings();
 	}, [search]);
 
 	return (
 		<div>
-			{loading && (
-				<Spinner />
-			)}
-			<div className="max-w-6xl mx-auto pt-4 ">
+			{loading && <Spinner />}
+			<SearchNavbar inputValue={inputValue} onInputChange={handleInputChange} />
+
+			<SearchedNavbar inputValue={inputValue} />
+
+			<div className="max-w-6xl mx-auto overlay ">
 				{listings && listings.length > 0 ? (
-					<div className="m-2 mb-6">
-						<h2 className="px-3 text-2xl mt-6 font-semibold">
+					<div className="m-2 ">
+						<h2 className="px-3 text-2xl mt-6 mb-4 font-semibold">
 							Qidirilgan uylar
 						</h2>
-						<Link to="/offers">
-							<p className="px-3 text-sm text-blue-600 hover:text-blue-800 transition duration-150 ease-in-out"></p>
-						</Link>
 						<ul className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
 							{listings.map((listing) => (
 								<ListingItem
@@ -83,11 +87,7 @@ export default function SearchedPlace() {
 							))}
 						</ul>
 					</div>
-				) : (
-					<p className="text-center text-3xl text-gray-400 w-[100%] shadow-slate-600">
-						Iltimos boshqa manzilni kiritib ko'ring
-					</p>
-				)}
+				) : null}
 			</div>
 		</div>
 	);
