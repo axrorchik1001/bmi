@@ -1,17 +1,17 @@
 import {
 	collection,				
 	getDocs,
+	// limit,
 	orderBy,
 	query,
 	where,
 } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { db } from "../firebase";
-import ListingItem from "../components/ListingItem";
+import ListingItem from "./ListingItem";
 
-export default function SearchedNavbar({ minPrice, maxPrice }) {
+export default function SearchedBed({ minBed, maxBed}) {
 	const [listings, setListings] = useState(null);
-
 
 	useEffect(() => {
 		async function fetchListings() {
@@ -22,28 +22,33 @@ export default function SearchedNavbar({ minPrice, maxPrice }) {
 				// create the query
 				let q = query(
 					listingsRef,
-					orderBy("regularPrice"), // `regularPrice` bo'yicha tartiblash
-					// orderBy("bedrooms"), // `bedrooms` bo'yich	
+					orderBy("bedrooms"), // `bedrooms` bo'yich	
 					orderBy("timestamp", "desc"), // `timestamp` bo'yicha tartiblash
 				);
 
-				if (minPrice !== null && minPrice !== "" && !isNaN(minPrice)) {
-					q = query(q, where("regularPrice", ">=", Number(minPrice)));
+				if (minBed !== null && minBed !== "" && !isNaN(minBed)) {
+					q = query(q, where("bedrooms", ">=", Number(minBed)));
 				}
 
-				if (maxPrice !== null && maxPrice !== "" && !isNaN(maxPrice)) {
-					q = query(q, where("regularPrice", "<=", Number(maxPrice)));
+				if (maxBed !== null && maxBed !== "" && !isNaN(maxBed)) {
+					q = query(q, where("bedrooms", "<=", Number(maxBed)));
 				}
+
+				
 
 				// execute the query
 				const querySnap = await getDocs(q);
+
 				const listings = [];
 				querySnap.forEach((doc) => {
+					// console.log(doc.data().bedrooms);
+					// console.log(typeof doc.data().bedrooms);
+					
+					const data = doc.data();
 					listings.push({
 						id: doc.id,
 						data: doc.data(),
 
-						// {...doc.data(), regularPrice: Number(doc.data().regularPrice)},
 					});
 				});
 				setListings(listings);
@@ -53,7 +58,7 @@ export default function SearchedNavbar({ minPrice, maxPrice }) {
 		}
 
 		fetchListings();
-	}, [minPrice, maxPrice]);
+	}, [minBed, maxBed]);
 
 	return (
 		<div>

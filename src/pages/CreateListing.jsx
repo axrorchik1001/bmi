@@ -67,11 +67,17 @@ export default function CreateListing() {
 		}
 		//Text, Boolean, Number
 		if (!e.target.files) {
+			let value = e.target.value;
+			// Son tipida bo'lgan maydonlarni number ga o'girish
+			if (e.target.id === "bedrooms" || e.target.id === "bathrooms" || e.target.id === "discountedPrice" || e.target.id === "regularPrice") {
+				value = Number(value);
+			}
 			setFormData((prevState) => ({
 				...prevState,
-				[e.target.id]: boolean ?? e.target.value, // boolean qiymati null bo'lsa yoki qiymat boshqa turdagi bo'lsa, e.target.value qiymatni qaytaradi. Agar boolean qiymati true yoki false bo'lsa, true yoki false qaytaradi
+				[e.target.id]: value,
 			}));
 		}
+		// 		[e.target.id]: boolean ?? e.target.value, // boolean qiymati null bo'lsa yoki qiymat boshqa turdagi bo'lsa, e.target.value qiymatni qaytaradi. Agar boolean qiymati true yoki false bo'lsa, true yoki false qaytaradi
 	}
 
 	async function onSubmit(e) {

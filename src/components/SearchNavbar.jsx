@@ -1,43 +1,25 @@
 import React, { useEffect, useRef, useState } from "react";
-// import { createContext } from "react";
 import { AiOutlineDown } from "react-icons/ai";
 import { AiOutlineMinus } from "react-icons/ai";
 import { useNavigate } from "react-router";
-import { db } from "../firebase";
-import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 
-// export const { ListingContext } = createContext();
-
-export default function SearchNavbar({ inputValue, onInputChange }) {
+export default function SearchNavbar({ minPrice, onMinPriceChange, onMaxPriceChange, maxPrice, onMaxBedChange, onMinBedChange, minBed, maxBed, type, onChangeType}) {
 	const [search, setSearch] = useState("");
 	const [showModalPrice, setShowModalPrice] = useState(false);
 	const [showModalBed, setShowModalBed] = useState(false);
 	const [showModalType, setShowModalType] = useState(false);
 	const [isLeaseChecked, setIsLeaseChecked] = useState(false);
 	const [isSaleChecked, setIsSaleChecked] = useState(false);
-	// const [minPrice, setMinPrice] = useState("");
-	// const [maxPrice, setMaxPrice] = useState("");
-	// const [listingsNavbar, setListingsNavbar] = useState("");
 
-	const firstInputRef = useRef(null);
-	const secondInputRef = useRef(null);
+
+	const maxPriceRef = useRef(null);
+	const maxBedRef = useRef(null);
 	const navigate = useNavigate();
-
-	// const [value, setValue] = useState("")
-
-	// const valuePrice = (e) => {
-	// 	setValue(e.target.value);
-	// 	getMinPrice(value)
-		
-	// 	console.log(value);
-		
-	// }
 
 	const handleLeaseCheckboxChange = () => {
 		setIsLeaseChecked(!isLeaseChecked);
 		setIsSaleChecked(false);
 	};
-
 	const handleSaleCheckboxChange = () => {
 		setIsLeaseChecked(false);
 		setIsSaleChecked(!isSaleChecked);
@@ -58,18 +40,7 @@ export default function SearchNavbar({ inputValue, onInputChange }) {
 		setShowModalBed(false);
 		setShowModalPrice(false);
 	};
-	const onMinMax = (e) => {
-		e.preventDefault();
 
-		// Birinchi inputdan qiymatni olish
-		const firstInputValue = firstInputRef.current.value;
-
-		// Ikkinchi inputga focus qilish
-		secondInputRef.current.focus();
-	};
-	const OnMaxPrice = () => {
-		console.log("salom");
-	};
 
 	const handleChange = (value) => {
 		setSearch(value);
@@ -84,48 +55,34 @@ export default function SearchNavbar({ inputValue, onInputChange }) {
 			setSearch("");
 		}
 	};
-	const handleFirstInputKeyDown = (e) => {
+
+	const handleMinPriceKeyDown = (e) => {
 		if (e.key === "Enter") {
 			e.preventDefault();
+			maxPriceRef.current.focus();
 
-			// console.log(minPrice);
 		}
 	};
-	const handleSecondInputKeyDown = (e) => {
+	const handleMaxPriceKeyDown = (e) => {
 		if (e.key === "Enter") {
 			e.preventDefault();
+			setShowModalPrice(false);
+
 		}
 	};
 
+	const handleMinBedKeydown = (e) => {
+		if (e.key === "Enter") {
+			e.preventDefault();
+			maxBedRef.current.focus();
+	}}
 
-	// for max price
-	// useEffect(() => {
-	// 	async function fetchMaxPrice() {
-	// 		try {
-	// 			const listingsRef = collection(db, "listings");
-	// 			const querySnapshot = await getDocs(listingsRef);
+	const handleMaxBedKeydown = (e) => {
+		if (e.key === "Enter") {
+			e.preventDefault();
+			setShowModalBed(false);
+	}}
 
-	// 			const filteredListings = [];
-	// 			querySnapshot.forEach((doc) => {
-	// 				const listing = doc.data();
-	// 				const regularPrice = listing.regularPrice;
-
-	// 				// Kiritilgan min va max sonlarni tekshiramiz
-	// 				if (
-	// 					parseInt(minPrice) <= regularPrice &&
-	// 					regularPrice <= parseInt(maxPrice)
-	// 				) {
-	// 					filteredListings.push(listing);
-	// 				}
-	// 				setListingsNavbar(filteredListings);
-	// 			});
-	// 		} catch (error) {
-	// 			console.log(error);
-	// 		}
-	// 	}
-
-	// 	fetchMaxPrice();
-	// }, [minPrice, maxPrice]);
 
 	return (
 		// <ListingContext.Provider value={listingsNavbar}>
@@ -197,7 +154,7 @@ export default function SearchNavbar({ inputValue, onInputChange }) {
 						<div className="relative">
 							<div className="w-[300px]  bg-[#f07e49] absolute top-[31px] right-[140px]">
 								<form
-									onSubmit={onMinMax}
+									// onSubmit={onMinMax}
 									className="flex justify-between p-2 items-center"
 								>
 									<fieldset>
@@ -206,11 +163,9 @@ export default function SearchNavbar({ inputValue, onInputChange }) {
 												type="text"
 												className="w-28"
 												placeholder="Min $"
-												ref={firstInputRef}
-												onKeyDown={handleFirstInputKeyDown}
-												// onChange={(e) => valuePrice(e)}
-												// value={value}
-												value={inputValue} onChange={onInputChange}
+												// ref={firstInputRef}
+												onKeyDown={handleMinPriceKeyDown}
+												value={minPrice} onChange={onMinPriceChange}
 											/>
 										</label>
 									</fieldset>
@@ -223,10 +178,9 @@ export default function SearchNavbar({ inputValue, onInputChange }) {
 												type="text"
 												className="w-28"
 												placeholder="Max $"
-												ref={secondInputRef}
-												onKeyDown={handleSecondInputKeyDown}
-												// onChange={(e) => setMaxPrice(e.target.value)}
-												// value={maxPrice}
+												ref={maxPriceRef}
+												onKeyDown={handleMaxPriceKeyDown}
+												value={maxPrice} onChange={onMaxPriceChange} 
 											/>
 										</label>
 									</fieldset>
@@ -244,7 +198,7 @@ export default function SearchNavbar({ inputValue, onInputChange }) {
 								<div className="flex justify-between p-2 items-center">
 									<fieldset>
 										<label>
-											<input type="text" className="w-28" placeholder="Min " />
+											<input type="text" className="w-28" placeholder="Min" onKeyDown={handleMinBedKeydown} value={minBed} onChange={onMinBedChange} />
 										</label>
 									</fieldset>
 									<i className="text-white">
@@ -252,7 +206,8 @@ export default function SearchNavbar({ inputValue, onInputChange }) {
 									</i>
 									<fieldset>
 										<label>
-											<input type="text" className="w-28" placeholder="Max " />
+											<input type="text" className="w-28" placeholder="Max" 
+											onKeyDown={handleMaxBedKeydown} ref={maxBedRef} value={maxBed} onChange={onMaxBedChange}/>
 										</label>
 									</fieldset>
 								</div>
@@ -272,6 +227,7 @@ export default function SearchNavbar({ inputValue, onInputChange }) {
 											className="w-4"
 											checked={isLeaseChecked}
 											onChange={handleLeaseCheckboxChange}
+											
 										/>
 										<label className="text-white ml-1">Ijara</label>
 									</fieldset>
@@ -284,6 +240,7 @@ export default function SearchNavbar({ inputValue, onInputChange }) {
 											className="w-4"
 											checked={isSaleChecked}
 											onChange={handleSaleCheckboxChange}
+											
 										/>
 										<label className="text-white ml-1">Sotish</label>
 									</fieldset>
@@ -292,7 +249,6 @@ export default function SearchNavbar({ inputValue, onInputChange }) {
 						</div>
 					</div>
 				)}
-				{/* <SearchedPlace minPrice={minPrice} maxPrice={maxPrice}/> */}
 			</div>
 
 		/* </ListingContext.Provider> */

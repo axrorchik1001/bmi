@@ -75,7 +75,6 @@ export default function BgImg() {
 			setSearch("");
 		}
 	};
-
 	return (
 		<>
 			<div
